@@ -4,24 +4,33 @@ on:
     branches:
       - main
   pull_request:
+ 
 jobs:
-  checkov-job:
+  Scan-Build:
+    # Scan runs on ubuntu, mac and windows
     runs-on: ubuntu-latest
-    name: checkov-action
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@master
+    - uses: actions/checkout@v1
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Build with Maven
+      run: mvn compile
+    - name: Perform ShiftLeft Scan
+      uses: ShiftLeftSecurity/scan-action@master
+      env:
+        WORKSPACE: ""
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        output: reports
+        # Scan auto-detects the languages in your project. To override uncomment the below variable and set the type
+        type: credscan,java
+        # type: python
 
-      - name: Run Checkov action
-        id: checkov
-        uses: bridgecrewio/checkov-action@master
-        with:
-          directory: .
-          quiet: true # optional: display only failed checks
-          soft_fail: true # optional: do not return an error code if there are failed checks
-          framework: all # optional: run only on a specific infrastructure {cloudformation,terraform,kubernetes,all}
-          output_format: json # optional: the output format, one of: cli, json, junitxml, github_failed_only
-          download_external_modules: true # optional: download external terraform modules from public git repositories and terraform registry
-
+    - name: Upload report
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: reports
 
 
