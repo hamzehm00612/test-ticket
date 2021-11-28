@@ -18,7 +18,7 @@ jobs:
           JIRA_HOST: https://moiryan.atlassian.net
           JIRA_USER: hammymoh
           JIRA_PROJECT: ITMAN
-#          JIRA_ISSUE_TYPE: Bug
+          JIRA_ISSUE_TYPE: Bug
           JIRA_WATCHERS: hammymoh
 
 
