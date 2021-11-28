@@ -1,20 +1,21 @@
-name: GitHub Security Alerts for Jira
+name: "Sync GHAS to Jira"
+
 on:
   schedule:
-    - cron: '*/1 * * * *'
+    - cron: '*/1 * * * *'    # trigger synchronization every 10 minutes
 
 jobs:
-  syncSecurityAlerts:
+  test_job:
     runs-on: ubuntu-latest
     steps:
-      - name: "Sync security alerts to Jira issues"
-        uses: reload/github-security-jira@v1.x
-        env:
-          GH_SECURITY_TOKEN: ${{ secrets.GitHubSecurityToken }}
-          JIRA_TOKEN: ${{ secrets.JiraApiToken }}
-          JIRA_HOST: https://moiryan.atlassian.net
-          JIRA_USER: itnewclass@gmail.com
-          JIRA_PROJECT: IP
-          JIRA_ISSUE_TYPE: Bug
-          JIRA_WATCHERS: itnewclass@gmail.com
+      - name: Sync alerts to Jira issues
+        uses: github/ghas-jira-integration@v1
+        with:
+          jira_url: 'https://moiryan.atlassian.net'
+          jira_user: '${{ secrets.JIRA_USER }}'
+          jira_token: '${{ secrets.JIRA_TOKEN }}'
+          jira_project: 'IP'
+          sync_direction: 'gh2jira'
+
+
 
