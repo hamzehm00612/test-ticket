@@ -16,7 +16,7 @@ jobs:
           jira_url: 'https://moiryan.atlassian.net'
           jira_user: '${{ secrets.JIRA_USER }}'
           jira_token: '${{ secrets.JIRA_TOKEN }}'
-          jira_project: 'ITMAN'
+          jira_project: 'IP'
           sync_direction: 'gh2jira'
 
 
