@@ -3,7 +3,7 @@
 name: GitHub Security Alerts for Jira
 on:
   schedule:
-    - cron: '*/1 * * * *'
+    - cron: '* * * * *'
 
 jobs:
   test_job:
