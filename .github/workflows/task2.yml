@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Sync with JIRA
-        uses: github/codescanning-jira-integration@master
+        uses: github/codescanning-jira-integration@main
         with:
           jira_url: 'https://moiryan.atlassian.net'
           jira_user: 'hammymoh'
