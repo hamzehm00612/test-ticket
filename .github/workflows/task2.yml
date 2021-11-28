@@ -1,5 +1,5 @@
 
-name:  Alerts for Jira
+name:  Security A
 on:
   push:
     branches:
@@ -7,16 +7,21 @@ on:
   pull_request:
 
 jobs:
-  test_job:
+  syncSecurityAlerts:
     runs-on: ubuntu-latest
     steps:
-      - name: Sync alerts to Jira issues
-        uses: github/ghas-jira-integration@v1
-        with:
-          jira_url: 'https://moiryan.atlassian.net'
-          jira_user: '${{ secrets.JIRA_USER }}'
-          jira_token: '${{ secrets.JIRA_TOKEN }}'
-          jira_project: 'IP'
-          sync_direction: 'gh2jira'
+      - name: "Sync security alerts to Jira issues"
+        uses: reload/github-security-jira@v1.x
+        env:
+          GH_SECURITY_TOKEN: ${{ secrets.GitHubSecurityToken }}
+          JIRA_TOKEN: ${{ secrets.JiraApiToken }}
+          JIRA_HOST: https://moiryan.atlassian.net
+          JIRA_USER: hammymoh
+          JIRA_PROJECT: ITMAN
+#          JIRA_ISSUE_TYPE: Bug
+          JIRA_WATCHERS: hammymoh
+
+
+
 
 
