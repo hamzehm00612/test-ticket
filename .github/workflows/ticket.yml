@@ -12,10 +12,10 @@ jobs:
       - name: Sync alerts to Jira issues
         uses: github/ghas-jira-integration@v1
         with:
-          jira_url: https://moiryan.atlassian.net
-          jira_user: ${{ secrets.JIRA_USER }}
-          jira_token: ${{ secrets.JIRA_TOKEN }}
-          jira_project: IP
+          jira_url: 'https://moiryan.atlassian.net'
+          jira_user: '${{ secrets.JIRA_USER }}'
+          jira_token: '${{ secrets.JIRA_TOKEN }}'
+          jira_project: 'IP'
           sync_direction: 'gh2jira'
 
 
