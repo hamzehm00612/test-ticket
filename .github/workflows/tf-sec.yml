@@ -5,21 +5,23 @@ on:
       - main
   pull_request:
 jobs:
-  tfsec:
-    name: tfsec sarif report
+  checkov-job:
     runs-on: ubuntu-latest
+    name: checkov-action
     steps:
-      - name: Clone repo
+      - name: Checkout repo
         uses: actions/checkout@master
 
-      - name: tfsec
-        uses: tfsec/tfsec-sarif-action@master
+      - name: Run Checkov action
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
         with:
-          sarif_file: tfsec.sarif
-      - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v1
-        with:
-          # Path to SARIF file relative to the root of the repository
-          sarif_file: tfsec.sarif
+          directory: .
+          quiet: true # optional: display only failed checks
+          soft_fail: true # optional: do not return an error code if there are failed checks
+          framework: all # optional: run only on a specific infrastructure {cloudformation,terraform,kubernetes,all}
+          output_format: json # optional: the output format, one of: cli, json, junitxml, github_failed_only
+          download_external_modules: true # optional: download external terraform modules from public git repositories and terraform registry
+
 
 
