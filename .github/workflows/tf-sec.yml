@@ -21,7 +21,7 @@ jobs:
       uses: ShiftLeftSecurity/scan-action@master
       env:
         WORKSPACE: ""
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUBSECURITYTOKEN }}
       with:
         output: reports
         # Scan auto-detects the languages in your project. To override uncomment the below variable and set the type
